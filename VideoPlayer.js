@@ -774,10 +774,8 @@ export default class VideoPlayer extends Component {
                     style={[ styles.controls.column, styles.controls.vignette,
                 ]}>
                     <View style={ styles.controls.topControlGroup }>
-                        <View style={ styles.controls.pullRight }>
-                            { this.renderVolume() }
-                            { this.renderFullscreen() }
-                        </View>
+                        { this.renderVolume() }
+                        { this.renderFullscreen() }
                     </View>
                 </Image>
             </Animated.View>

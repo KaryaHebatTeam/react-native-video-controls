@@ -76,7 +76,9 @@ export default class VideoPlayer extends Component {
          * Functions used throughout the application
          */
         this.methods = {
-            onFullscreen: this.props.onFullscreen || this._onFullscreen.bind( this ),
+            onMinimize: this.props.onMinimize,
+            onMaximize: this.props.onMaximize,
+            onFullscreen: this._onFullscreen.bind( this ),
             togglePlayPause: this._togglePlayPause.bind( this ),
             toggleControls: this._toggleControls.bind( this ),
             toggleTimer: this._toggleTimer.bind( this ),
@@ -347,6 +349,22 @@ export default class VideoPlayer extends Component {
     }
 
     /**
+     * Function to minimize or maximize (fullscreen)
+     * the video
+     */
+     _onFullscreen() {
+         let state = this.state;
+
+         if (state.isFullscreen) {
+             this.methods.onMinimize();
+         } else {
+             this.methods.onMaximize();
+         }
+
+         state.isFullscreen = !state.isFullscreen;
+     }
+
+    /**
      * Function to hide the controls. Sets our
      * state then calls the animation.
      */
@@ -374,19 +392,6 @@ export default class VideoPlayer extends Component {
             this.hideControlAnimation();
             this.clearControlTimeout();
         }
-
-        this.setState( state );
-    }
-
-    /**
-     * Toggle fullscreen changes resizeMode on
-     * the <Video> component then updates the
-     * isFullscreen state.
-     */
-    _onFullscreen() {
-        let state = this.state;
-        state.isFullscreen = ! state.isFullscreen;
-        state.resizeMode = state.isFullscreen === true ? 'cover' : 'contain';
 
         this.setState( state );
     }

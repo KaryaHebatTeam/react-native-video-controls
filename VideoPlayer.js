@@ -76,8 +76,8 @@ export default class VideoPlayer extends Component {
          * Functions used throughout the application
          */
         this.methods = {
-            onMinimize: this.props.onMinimize,
-            onMaximize: this.props.onMaximize,
+            onMinimize: this.props.onMinimize || () => {},
+            onMaximize: this.props.onMaximize || () => {},
             onFullscreen: this._onFullscreen.bind( this ),
             togglePlayPause: this._togglePlayPause.bind( this ),
             toggleControls: this._toggleControls.bind( this ),

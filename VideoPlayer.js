@@ -76,8 +76,8 @@ export default class VideoPlayer extends Component {
          * Functions used throughout the application
          */
         this.methods = {
+            onFullscreen: this.props.onFullscreen || this._onFullscreen.bind( this ),
             onBack: this.props.onBack || this._onBack.bind( this ),
-            toggleFullscreen: this._toggleFullscreen.bind( this ),
             togglePlayPause: this._togglePlayPause.bind( this ),
             toggleControls: this._toggleControls.bind( this ),
             toggleTimer: this._toggleTimer.bind( this ),
@@ -221,7 +221,7 @@ export default class VideoPlayer extends Component {
         const delta =  time - state.lastScreenPress;
 
         if ( delta < 300 ) {
-            this.methods.toggleFullscreen();
+            this.methods.onFullscreen();
         }
 
         this.methods.toggleControls();
@@ -384,7 +384,7 @@ export default class VideoPlayer extends Component {
      * the <Video> component then updates the
      * isFullscreen state.
      */
-    _toggleFullscreen() {
+    _onFullscreen() {
         let state = this.state;
         state.isFullscreen = ! state.isFullscreen;
         state.resizeMode = state.isFullscreen === true ? 'cover' : 'contain';
@@ -845,7 +845,7 @@ export default class VideoPlayer extends Component {
         let source = this.state.isFullscreen === true ? require( './assets/img/shrink.png' ) : require( './assets/img/expand.png' );
         return this.renderControl(
             <Image source={ source } />,
-            this.methods.toggleFullscreen,
+            this.methods.onFullscreen,
             styles.controls.fullscreen
         );
     }

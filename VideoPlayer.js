@@ -77,7 +77,6 @@ export default class VideoPlayer extends Component {
          */
         this.methods = {
             onFullscreen: this.props.onFullscreen || this._onFullscreen.bind( this ),
-            onBack: this.props.onBack || this._onBack.bind( this ),
             togglePlayPause: this._togglePlayPause.bind( this ),
             toggleControls: this._toggleControls.bind( this ),
             toggleTimer: this._toggleTimer.bind( this ),
@@ -409,20 +408,6 @@ export default class VideoPlayer extends Component {
         let state = this.state;
         state.showTimeRemaining = ! state.showTimeRemaining;
         this.setState( state );
-    }
-
-    /**
-     * The default 'onBack' function pops the navigator
-     * and as such the video player requires a
-     * navigator prop by default.
-     */
-    _onBack() {
-        if ( this.props.navigator && this.props.navigator.pop ) {
-            this.props.navigator.pop();
-        }
-        else {
-            console.warn( 'Warning: _onBack requires navigator property to function. Either modify the onBack prop or pass a navigator prop' );
-        }
     }
 
     /**
@@ -784,7 +769,6 @@ export default class VideoPlayer extends Component {
                     style={[ styles.controls.column, styles.controls.vignette,
                 ]}>
                     <View style={ styles.controls.topControlGroup }>
-                        { this.renderBack() }
                         <View style={ styles.controls.pullRight }>
                             { this.renderVolume() }
                             { this.renderFullscreen() }
@@ -792,20 +776,6 @@ export default class VideoPlayer extends Component {
                     </View>
                 </Image>
             </Animated.View>
-        );
-    }
-
-    /**
-     * Back button control
-     */
-    renderBack() {
-        return this.renderControl(
-            <Image
-                source={ require( './assets/img/back.png' ) }
-                style={ styles.controls.back }
-            />,
-            this.methods.onBack,
-            styles.controls.back
         );
     }
 
